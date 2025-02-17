@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  nextjs-app:
+    container_name: pokemon_explorer
+    build: .
+    ports:
+      - "3000:3000"
+    restart: always
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules  # node_modules ওভাররাইট হবে না
+    environment:
+      - NODE_ENV=development
