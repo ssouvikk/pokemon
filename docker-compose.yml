@@ -10,6 +10,6 @@ services:
     restart: always
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules  # node_modules ওভাররাইট হবে না
+      - /usr/src/app/node_modules
     environment:
       - NODE_ENV=development
