@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Loader from '@/components/Loader';
 
 interface PokemonDetail {
     id: number;
@@ -25,9 +26,7 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
 
     if (router.isFallback) {
         return (
-            <div className="container mx-auto p-6 text-center text-xl font-semibold">
-                লোড হচ্ছে...
-            </div>
+            <Loader />
         );
     }
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import type { AppProps } from 'next/app';
 import Navbar from '@/components/Navbar';
+import Loader from '@/components/Loader';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -53,9 +54,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       {loading && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 z-50">
-          <p className="text-xl font-bold text-black dark:text-white">লোড হচ্ছে...</p>
-        </div>
+        // Loader কম্পোনেন্টকে ব্যবহার করে, প্রয়োজনে প্রোপস দিয়ে কনফিগার করা যায়
+        <Loader message="লোড হচ্ছে..." spinnerSize={64} spinnerColor="border-blue-500" />
       )}
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       {/* Fixed Navbar এর জন্য উপরের 80px (প্রায়) জায়গা রেখে দিন */}
