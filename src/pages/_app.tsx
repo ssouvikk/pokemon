@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import type { AppProps } from 'next/app';
+import Navbar from '@/components/Navbar';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -56,16 +57,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           <p className="text-xl font-bold text-black dark:text-white">লোড হচ্ছে...</p>
         </div>
       )}
-      {/* Header এর মতো জায়গায় dark mode toggle button রাখা */}
-      <div className="p-4 flex justify-end bg-gray-50 dark:bg-gray-800 shadow-md">
-        <button
-          onClick={toggleDarkMode}
-          className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-hover transition focus:outline-none focus:ring-2 focus:ring-primary"
-        >
-          {darkMode ? 'লাইট মোড' : 'ডার্ক মোড'}
-        </button>
+      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      {/* Fixed Navbar এর জন্য উপরের 80px (প্রায়) জায়গা রেখে দিন */}
+      <div className="pt-20">
+        <Component {...pageProps} />
       </div>
-      <Component {...pageProps} />
     </>
   );
 }
