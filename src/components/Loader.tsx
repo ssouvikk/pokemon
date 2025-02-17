@@ -9,7 +9,7 @@ interface LoaderProps {
 }
 
 const Loader: React.FC<LoaderProps> = ({
-    message = "লোড হচ্ছে...",
+    message = "Loading...",
     spinnerSize = 64,
     spinnerColor = "border-blue-500",
     backgroundColor = "bg-gray-100 dark:bg-gray-900",
