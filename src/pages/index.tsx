@@ -1,10 +1,7 @@
 // pages/index.tsx
+import { Pokemon } from '@/types';
 import { GetServerSideProps, GetStaticProps } from 'next';
 
-interface Pokemon {
-  name: string;
-  url: string;
-}
 
 interface HomeProps {
   pokemons: Pokemon[];

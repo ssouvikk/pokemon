@@ -1,10 +1,20 @@
-/* const PokemonCard = ({ pokemon }) => {
+import Image from 'next/image';
+import { Pokemon } from '@/types';
+
+const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
     return (
-        <div className="border p-4 rounded-lg shadow-md hover:shadow-lg transition">
-            <h2 className="text-xl font-bold">{pokemon.name.toUpperCase()}</h2>
-            <img src={pokemon.image} alt={pokemon.name} className="w-20 h-20 mx-auto" />
+        <div className="border p-4 rounded-lg shadow hover:shadow-lg transition">
+            <h2 className="text-xl font-bold capitalize text-center">{pokemon.name}</h2>
+            <Image
+                src={pokemon.url}
+                alt={`${pokemon.name} এর ছবি`}
+                width={200}
+                height={200}
+                className="mx-auto"
+                priority={false} // Lazy loading by default
+            />
         </div>
     );
 };
+
 export default PokemonCard;
- */
