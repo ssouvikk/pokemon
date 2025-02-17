@@ -1,78 +1,52 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+// pages/pokemon/[id].tsx
+import { GetStaticPaths, GetStaticProps } from 'next';
 
-interface Stat {
+interface PokemonDetail {
     name: string;
-    value: number;
+    id: number;
+    types: { type: { name: string } }[];
+    // আরও প্রয়োজনীয় ডেটা...
 }
 
 interface DetailProps {
-    pokemon: {
-        name: string;
-        image: string;
-        types: string[];
-        abilities: string[];
-        stats: Stat[];
-        moves: string[];
-    };
+    pokemon: PokemonDetail;
 }
 
-const DetailPage: React.FC<DetailProps> = ({ pokemon }) => {
-    const router = useRouter();
-
+const PokemonDetailPage: React.FC<DetailProps> = ({ pokemon }) => {
     return (
-        <div className="container mx-auto p-4">
-            {/* ব্যাক বোতাম */}
-            <button
-                onClick={() => router.back()}
-                className="mb-4 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-                ← ফিরে যান
-            </button>
-
-            {/* পোকেমন বিস্তারিত তথ্যের কার্ড */}
-            <div className="bg-white shadow rounded p-6">
-                <div className="flex flex-col md:flex-row items-center">
-                    <img
-                        src={pokemon.image}
-                        alt={`${pokemon.name} এর ছবি`}
-                        className="w-48 h-48 object-contain mb-4 md:mb-0 md:mr-6"
-                    />
-                    <div>
-                        <h1 className="text-3xl font-bold capitalize mb-2">{pokemon.name}</h1>
-                        <p className="mb-2">
-                            <span className="font-semibold">টাইপ: </span>
-                            {pokemon.types.join(', ')}
-                        </p>
-                        <p className="mb-2">
-                            <span className="font-semibold">অ্যাবিলিটিস: </span>
-                            {pokemon.abilities.join(', ')}
-                        </p>
-                    </div>
-                </div>
-                {/* স্ট্যাটস ও মুভস */}
-                <div className="mt-6">
-                    <h2 className="text-2xl font-semibold mb-4">স্ট্যাটস</h2>
-                    <ul className="list-disc list-inside">
-                        {pokemon.stats.map((stat, index) => (
-                            <li key={index}>
-                                <span className="font-semibold">{stat.name}: </span>
-                                {stat.value}
-                            </li>
-                        ))}
-                    </ul>
-                    <h2 className="text-2xl font-semibold my-4">মুভস</h2>
-                    <ul className="list-disc list-inside">
-                        {pokemon.moves.map((move, index) => (
-                            <li key={index} className="capitalize">
-                                {move}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+        <div>
+            <h1>{pokemon.name} (ID: {pokemon.id})</h1>
+            <p>
+                {pokemon.types.map((t, index) => (
+                    <span key={index}>{t.type.name} </span>
+                ))}
+            </p>
+            {/* অন্যান্য বিস্তারিত তথ্য */}
         </div>
     );
 };
 
-export default DetailPage;
+export const getStaticPaths: GetStaticPaths = async () => {
+    // প্রাথমিক 151 পোকেমন এর জন্য পাথ জেনারেট করা
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+    const data = await res.json();
+
+    const paths = data.results.map((pokemon: { name: string; url: string }, index: number) => ({
+        params: { id: String(index + 1) },
+    }));
+
+    return { paths, fallback: 'blocking' };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+    const { id } = context.params!;
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const pokemon = await res.json();
+
+    return {
+        props: { pokemon },
+        revalidate: 60, // প্রতি 60 সেকেন্ড পর পেজ রিজেনারেট হবে
+    };
+};
+
+export default PokemonDetailPage;
