@@ -8,10 +8,10 @@ import Loader from '@/components/Loader';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
-  // Dark mode স্টেট: true হলে dark mode, false হলে light mode
+  // Dark mode state: true for dark mode, false for light mode
   const [darkMode, setDarkMode] = useState(false);
 
-  // রাউট পরিবর্তনের জন্য লোডার
+  // Loader for route change
   useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, []);
 
-  // পেজ লোডের সময় localStorage থেকে dark mode প্রেফারেন্স নিয়ে সেট করা
+  // Fetch dark mode preference from localStorage during page load
   useEffect(() => {
     const storedDarkMode = localStorage.getItem('darkMode');
     if (storedDarkMode === 'true') {
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, []);
 
-  // dark mode toggle করার ফাংশন
+  // Function to toggle dark mode
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
@@ -54,11 +54,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       {loading && (
-        // Loader কম্পোনেন্টকে ব্যবহার করে, প্রয়োজনে প্রোপস দিয়ে কনফিগার করা যায়
-        <Loader message="লোড হচ্ছে..." spinnerSize={64} spinnerColor="border-blue-500" />
+        // Using the Loader component, configurable with props as needed
+        <Loader message="Loading..." spinnerSize={64} spinnerColor="border-blue-500" />
       )}
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      {/* Fixed Navbar এর জন্য উপরের 80px (প্রায়) জায়গা রেখে দিন */}
+      {/* Keep space of approximately 80px for the fixed Navbar at the top */}
       <div className="pt-20">
         <Component {...pageProps} />
       </div>

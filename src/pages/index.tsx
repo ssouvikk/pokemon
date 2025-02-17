@@ -14,7 +14,7 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
 
-  // ডেটা ফেচ করার ফাংশন
+  // Function to fetch data
   const fetchPokemons = async (page: number) => {
     const limit = 20;
     const offset = (page - 1) * limit;
@@ -32,7 +32,7 @@ const HomePage = () => {
     return pokemonData;
   };
 
-  // হোমপেজ লোড হবার সময় URL থেকে সার্চ ও পেজ রিড করা
+  // Load search query and page number from URL when the page loads
   useEffect(() => {
     if (querySearch) {
       setSearchQuery(querySearch as string);
@@ -42,7 +42,7 @@ const HomePage = () => {
     }
   }, [querySearch, queryPage]);
 
-  // পেজ বা কম্পোনেন্ট মাউন্ট হলে ডেটা ফেচ
+  // Fetch data when the page or component is mounted
   useEffect(() => {
     const loadPokemons = async () => {
       const newPokemons = await fetchPokemons(page);
@@ -51,7 +51,7 @@ const HomePage = () => {
     loadPokemons();
   }, [page]);
 
-  // সার্চ অনুযায়ী ফিল্টার করা
+  // Filter pokemons based on the search query
   useEffect(() => {
     if (searchQuery === '') {
       setFilteredPokemons(pokemons);
@@ -63,13 +63,13 @@ const HomePage = () => {
     }
   }, [searchQuery, pokemons]);
 
-  // সার্চ ইনপুট পরিবর্তনের সময় URL আপডেট করা
+  // Update the URL when search input changes
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
     router.push(`/?search=${value}&page=${page}`, undefined, { shallow: true });
   };
 
-  // ইনফিনিট স্ক্রল হ্যান্ডলার
+  // Infinite scroll handler
   const handleScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop + 100 >= document.documentElement.scrollHeight) {
       const newPage = page + 1;

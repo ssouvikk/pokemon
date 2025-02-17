@@ -32,15 +32,15 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
             <div className="container mx-auto p-6 text-center bg-gray-100 dark:bg-gray-900 min-h-screen">
                 <Head>
                     <title>Pokémon Not Found</title>
-                    <meta name="description" content="দুঃখিত, আপনি যে Pokémon খুঁজছেন তা পাওয়া যায়নি।" />
+                    <meta name="description" content="Sorry, the Pokémon you are looking for could not be found." />
                 </Head>
                 <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">Pokémon Not Found</h1>
-                <p className="mb-6 text-gray-700 dark:text-gray-300">দুঃখিত, আপনি যে Pokémon খুঁজছেন তা পাওয়া যায়নি।</p>
+                <p className="mb-6 text-gray-700 dark:text-gray-300">Sorry, the Pokémon you are looking for could not be found.</p>
                 <button
                     onClick={() => router.push('/')}
                     className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                    হোমপেজে ফিরে যান
+                    Go back to the homepage
                 </button>
             </div>
         );
@@ -49,24 +49,24 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
     return (
         <div className="container mx-auto p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
             <Head>
-                <title>{pokemon.name} - Pokémon বিস্তারিত</title>
-                <meta name="description" content={`${pokemon.name} সম্পর্কে বিস্তারিত তথ্য`} />
+                <title>{pokemon.name} - Pokémon Details</title>
+                <meta name="description" content={`Detailed information about ${pokemon.name}`} />
             </Head>
 
-            {/* ব্যাক বাটন */}
+            {/* Back button */}
             <button
                 onClick={() => router.back()}
                 className="flex items-center gap-2 mb-6 px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
-                <ArrowLeft size={20} /> ফিরে যান
+                <ArrowLeft size={20} /> Go back
             </button>
 
-            {/* Pokémon ডিটেইলস কার্ড */}
+            {/* Pokémon details card */}
             <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
                 <div className="flex flex-col md:flex-row items-center">
                     <Image
                         src={pokemon.sprites.front_default}
-                        alt={`${pokemon.name} এর ছবি`}
+                        alt={`${pokemon.name}'s image`}
                         width={220}
                         height={220}
                         className="object-contain drop-shadow-lg"
@@ -76,7 +76,7 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                             {pokemon.name} <span className="text-gray-500">({pokemon.id})</span>
                         </h1>
                         <div className="mt-3">
-                            <p className="text-lg font-semibold text-gray-800 dark:text-gray-300">টাইপ:</p>
+                            <p className="text-lg font-semibold text-gray-800 dark:text-gray-300">Type:</p>
                             <div className="flex gap-2 mt-1">
                                 {pokemon.types.map((t, idx) => (
                                     <span key={idx} className="px-3 py-1 bg-blue-200 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded-full text-sm capitalize">
@@ -86,7 +86,7 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                             </div>
                         </div>
                         <div className="mt-3">
-                            <p className="text-lg font-semibold text-gray-800 dark:text-gray-300">অ্যাবিলিটিস:</p>
+                            <p className="text-lg font-semibold text-gray-800 dark:text-gray-300">Abilities:</p>
                             <div className="flex gap-2 mt-1">
                                 {pokemon.abilities.map((a, idx) => (
                                     <span key={idx} className="px-3 py-1 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-sm capitalize">
@@ -98,9 +98,9 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                     </div>
                 </div>
 
-                {/* স্ট্যাটস */}
+                {/* Stats */}
                 <div className="mt-6">
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">স্ট্যাটস</h2>
+                    <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Stats</h2>
                     <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700 dark:text-gray-300">
                         {pokemon.stats.map((stat, idx) => (
                             <li key={idx} className="bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg text-center capitalize">
@@ -110,9 +110,9 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                     </ul>
                 </div>
 
-                {/* মুভসেট */}
+                {/* Moveset */}
                 <div className="mt-6">
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">মুভসেট</h2>
+                    <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Moveset</h2>
                     <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700 dark:text-gray-300">
                         {pokemon.moves.slice(0, 10).map((move, idx) => (
                             <li key={idx} className="bg-purple-200 dark:bg-purple-700 px-4 py-2 rounded-lg text-center capitalize">
