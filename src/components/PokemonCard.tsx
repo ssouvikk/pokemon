@@ -9,20 +9,21 @@ interface PokemonCardProps {
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     return (
-        <Link
-            href={`/pokemon/${pokemon.id}`}
-            className="block bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105"
-        >
-            <Image
-                src={pokemon.image}
-                alt={`${pokemon.name} এর থাম্বনেইল`}
-                width={96}
-                height={96}
-                className="mx-auto"
-            />
-            <h2 className="mt-2 text-center text-lg font-semibold capitalize text-gray-800 dark:text-gray-200">
-                {pokemon.name}
-            </h2>
+        <Link href={`/pokemon/${pokemon.id}`}>
+            <div className="group block bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md hover:shadow-2xl transition transform hover:-translate-y-2">
+                <div className="flex justify-center">
+                    <Image
+                        src={pokemon.image}
+                        alt={`${pokemon.name} এর ছবি`}
+                        width={120}
+                        height={120}
+                        className="drop-shadow-lg"
+                    />
+                </div>
+                <h2 className="mt-3 text-center text-lg font-semibold capitalize text-gray-900 dark:text-gray-100 group-hover:text-blue-500">
+                    {pokemon.name}
+                </h2>
+            </div>
         </Link>
     );
 };
