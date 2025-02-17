@@ -10,7 +10,7 @@ interface HomePageProps {
   pokemons: Pokemon[];
 }
 
-const HomePage: React.FC<HomePageProps> = ({ pokemons }) => {
+const HomePage: React.FC<HomePageProps> = ({ pokemons = [] }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>(pokemons);
 
