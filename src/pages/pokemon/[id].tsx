@@ -36,7 +36,7 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
             </Head>
             {/* ব্যাক বাটন: ক্লিক করলে হোমপেজে ফিরবে */}
             <button
-                onClick={() => router.push('/')}
+                onClick={() => router.back()}
                 className="mb-4 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
                 ← ফিরে যান
