@@ -15,7 +15,7 @@ Pokémon Explorer is a Next.js-based web application that allows users to search
 
 ### **Prerequisites**
 Ensure you have the following installed on your system:
-- **Node.js** (v20.11.1 or later)
+- **Node.js** (v20.11.1)
 - **Docker & Docker Compose** (for containerized development)
 
 ### **Local Development**

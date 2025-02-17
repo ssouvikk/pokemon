@@ -9,11 +9,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
         <div className="mb-6 flex justify-center">
             <input
                 type="text"
-                placeholder="Pokémon-এর নাম লিখুন..."
+                placeholder="Enter Pokémon name..."
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 className="w-full max-w-lg p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100"
-                aria-label="Pokémon সার্চ বক্স"
+                aria-label="Pokémon search box"
             />
         </div>
     );
