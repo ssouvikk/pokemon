@@ -17,7 +17,7 @@ interface PokemonDetail {
 }
 
 interface PokemonDetailProps {
-    pokemon: PokemonDetail;
+    pokemon: PokemonDetail | null;
 }
 
 const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
@@ -28,6 +28,27 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
         return <div>লোড হচ্ছে...</div>;
     }
 
+    // যদি pokemon null হয়, অর্থাৎ ভুল URL বা ডাটা না পাওয়ার ক্ষেত্রে
+    if (!pokemon) {
+        return (
+            <div className="container mx-auto p-4 text-center">
+                <Head>
+                    <title>Pokémon Not Found</title>
+                    <meta name="description" content="দুঃখিত, আপনি যে Pokémon খুঁজছেন তা পাওয়া যায়নি।" />
+                </Head>
+                <h1 className="text-3xl font-bold mb-4">Pokémon Not Found</h1>
+                <p className="mb-6">দুঃখিত, আপনি যে Pokémon খুঁজছেন তা পাওয়া যায়নি।</p>
+                <button
+                    onClick={() => router.push('/')}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    Go Back Home
+                </button>
+            </div>
+        );
+    }
+
+    // যদি সঠিক Pokémon পাওয়া যায়, তাহলে বিস্তারিত তথ্য দেখানো হবে
     return (
         <div className="container mx-auto p-4">
             <Head>
@@ -122,6 +143,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
     const { id } = context.params!;
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+
+    // যদি Pokémon পাওয়া না যায় বা কোনো এরর হয়, তাহলে pokemon কে null করে দেবো
+    if (res.status !== 200) {
+        return {
+            props: { pokemon: null },
+            revalidate: 60,
+        };
+    }
+
     const pokemon = await res.json();
 
     return {
