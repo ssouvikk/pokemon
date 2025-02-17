@@ -3,14 +3,13 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { ArrowLeft } from 'lucide-react';
 import Loader from '@/components/Loader';
 
 interface PokemonDetail {
     id: number;
     name: string;
-    sprites: {
-        front_default: string;
-    };
+    sprites: { front_default: string };
     types: { type: { name: string } }[];
     abilities: { ability: { name: string } }[];
     stats: { stat: { name: string }; base_stat: number }[];
@@ -25,9 +24,7 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
     const router = useRouter();
 
     if (router.isFallback) {
-        return (
-            <Loader />
-        );
+        return <Loader />;
     }
 
     if (!pokemon) {
@@ -41,9 +38,9 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                 <p className="mb-6 text-gray-700 dark:text-gray-300">দুঃখিত, আপনি যে Pokémon খুঁজছেন তা পাওয়া যায়নি।</p>
                 <button
                     onClick={() => router.push('/')}
-                    className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-hover transition focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                    Go Back Home
+                    হোমপেজে ফিরে যান
                 </button>
             </div>
         );
@@ -53,56 +50,74 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
         <div className="container mx-auto p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
             <Head>
                 <title>{pokemon.name} - Pokémon বিস্তারিত</title>
-                <meta name="description" content={`${pokemon.name} সম্পর্কে বিস্তারিত তথ্য।`} />
+                <meta name="description" content={`${pokemon.name} সম্পর্কে বিস্তারিত তথ্য`} />
             </Head>
+
+            {/* ব্যাক বাটন */}
             <button
                 onClick={() => router.back()}
-                className="mb-6 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
+                className="flex items-center gap-2 mb-6 px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
-                ← ফিরে যান
+                <ArrowLeft size={20} /> ফিরে যান
             </button>
-            <div className="bg-white dark:bg-gray-800 shadow-lg rounded p-6">
+
+            {/* Pokémon ডিটেইলস কার্ড */}
+            <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
                 <div className="flex flex-col md:flex-row items-center">
                     <Image
                         src={pokemon.sprites.front_default}
                         alt={`${pokemon.name} এর ছবি`}
-                        width={200}
-                        height={200}
-                        className="object-contain"
+                        width={220}
+                        height={220}
+                        className="object-contain drop-shadow-lg"
                     />
                     <div className="md:ml-8 mt-4 md:mt-0">
-                        <h1 className="text-3xl font-bold capitalize mb-2 text-gray-800 dark:text-gray-100">
-                            {pokemon.name} (ID: {pokemon.id})
+                        <h1 className="text-4xl font-bold capitalize text-gray-900 dark:text-gray-100">
+                            {pokemon.name} <span className="text-gray-500">({pokemon.id})</span>
                         </h1>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
-                            <strong>টাইপ: </strong>
-                            {pokemon.types.map((t, idx) => (
-                                <span key={idx} className="capitalize mr-2">{t.type.name}</span>
-                            ))}
-                        </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
-                            <strong>অ্যাবিলিটিস: </strong>
-                            {pokemon.abilities.map((a, idx) => (
-                                <span key={idx} className="capitalize mr-2">{a.ability.name}</span>
-                            ))}
-                        </p>
+                        <div className="mt-3">
+                            <p className="text-lg font-semibold text-gray-800 dark:text-gray-300">টাইপ:</p>
+                            <div className="flex gap-2 mt-1">
+                                {pokemon.types.map((t, idx) => (
+                                    <span key={idx} className="px-3 py-1 bg-blue-200 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded-full text-sm capitalize">
+                                        {t.type.name}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="mt-3">
+                            <p className="text-lg font-semibold text-gray-800 dark:text-gray-300">অ্যাবিলিটিস:</p>
+                            <div className="flex gap-2 mt-1">
+                                {pokemon.abilities.map((a, idx) => (
+                                    <span key={idx} className="px-3 py-1 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-sm capitalize">
+                                        {a.ability.name}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                {/* স্ট্যাটস */}
                 <div className="mt-6">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">স্ট্যাটস</h2>
-                    <ul className="space-y-1 text-gray-700 dark:text-gray-300">
+                    <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700 dark:text-gray-300">
                         {pokemon.stats.map((stat, idx) => (
-                            <li key={idx} className="capitalize">
-                                {stat.stat.name}: {stat.base_stat}
+                            <li key={idx} className="bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg text-center capitalize">
+                                {stat.stat.name}: <strong>{stat.base_stat}</strong>
                             </li>
                         ))}
                     </ul>
                 </div>
+
+                {/* মুভসেট */}
                 <div className="mt-6">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">মুভসেট</h2>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                    <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700 dark:text-gray-300">
                         {pokemon.moves.slice(0, 10).map((move, idx) => (
-                            <li key={idx} className="capitalize">{move.move.name}</li>
+                            <li key={idx} className="bg-purple-200 dark:bg-purple-700 px-4 py-2 rounded-lg text-center capitalize">
+                                {move.move.name}
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -118,10 +133,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         params: { id: String(index + 1) },
     }));
 
-    return {
-        paths,
-        fallback: true,
-    };
+    return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -129,18 +141,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
     if (res.status !== 200) {
-        return {
-            props: { pokemon: null },
-            revalidate: 60,
-        };
+        return { props: { pokemon: null }, revalidate: 60 };
     }
 
     const pokemon = await res.json();
-
-    return {
-        props: { pokemon },
-        revalidate: 60,
-    };
+    return { props: { pokemon }, revalidate: 60 };
 };
 
 export default PokemonDetailPage;
