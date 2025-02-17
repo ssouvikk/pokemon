@@ -23,15 +23,13 @@ interface PokemonDetailProps {
 const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
     const router = useRouter();
 
-    // fallback অবস্থায় লোডিং মেসেজ দেখানো হচ্ছে
     if (router.isFallback) {
-        return <div>লোড হচ্ছে...</div>;
+        return <div className="container mx-auto p-6 text-center text-xl font-semibold">লোড হচ্ছে...</div>;
     }
 
-    // যদি pokemon null হয়, অর্থাৎ ভুল URL বা ডাটা না পাওয়ার ক্ষেত্রে
     if (!pokemon) {
         return (
-            <div className="container mx-auto p-4 text-center">
+            <div className="container mx-auto p-6 text-center">
                 <Head>
                     <title>Pokémon Not Found</title>
                     <meta name="description" content="দুঃখিত, আপনি যে Pokémon খুঁজছেন তা পাওয়া যায়নি।" />
@@ -40,7 +38,7 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                 <p className="mb-6">দুঃখিত, আপনি যে Pokémon খুঁজছেন তা পাওয়া যায়নি।</p>
                 <button
                     onClick={() => router.push('/')}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-hover transition focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                     Go Back Home
                 </button>
@@ -48,24 +46,20 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
         );
     }
 
-    // যদি সঠিক Pokémon পাওয়া যায়, তাহলে বিস্তারিত তথ্য দেখানো হবে
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-6">
             <Head>
                 <title>{pokemon.name} - Pokémon বিস্তারিত</title>
                 <meta name="description" content={`${pokemon.name} সম্পর্কে বিস্তারিত তথ্য।`} />
             </Head>
-            {/* ব্যাক বাটন: ক্লিক করলে হোমপেজে ফিরবে */}
             <button
                 onClick={() => router.back()}
-                className="mb-4 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mb-6 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
                 ← ফিরে যান
             </button>
-            {/* Pokémon এর বিস্তারিত তথ্য প্রদর্শন */}
-            <div className="bg-white shadow rounded p-6">
+            <div className="bg-white dark:bg-gray-800 shadow-lg rounded p-6">
                 <div className="flex flex-col md:flex-row items-center">
-                    {/* Pokémon এর ছবি */}
                     <Image
                         src={pokemon.sprites.front_default}
                         alt={`${pokemon.name} এর ছবি`}
@@ -73,35 +67,25 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                         height={200}
                         className="object-contain"
                     />
-                    <div className="md:ml-6 mt-4 md:mt-0">
-                        {/* নাম ও ID */}
-                        <h1 className="text-3xl font-bold capitalize">
-                            {pokemon.name} (ID: {pokemon.id})
-                        </h1>
-                        {/* টাইপ (Type) */}
-                        <p className="mt-2">
+                    <div className="md:ml-8 mt-4 md:mt-0">
+                        <h1 className="text-3xl font-bold capitalize mb-2">{pokemon.name} (ID: {pokemon.id})</h1>
+                        <p className="mb-2">
                             <strong>টাইপ: </strong>
                             {pokemon.types.map((t, idx) => (
-                                <span key={idx} className="capitalize mr-2">
-                                    {t.type.name}
-                                </span>
+                                <span key={idx} className="capitalize mr-2">{t.type.name}</span>
                             ))}
                         </p>
-                        {/* অ্যাবিলিটিস (Abilities) */}
-                        <p className="mt-2">
+                        <p className="mb-2">
                             <strong>অ্যাবিলিটিস: </strong>
                             {pokemon.abilities.map((a, idx) => (
-                                <span key={idx} className="capitalize mr-2">
-                                    {a.ability.name}
-                                </span>
+                                <span key={idx} className="capitalize mr-2">{a.ability.name}</span>
                             ))}
                         </p>
                     </div>
                 </div>
-                {/* স্ট্যাটস (Stats) */}
                 <div className="mt-6">
-                    <h2 className="text-2xl font-semibold mb-2">স্ট্যাটস</h2>
-                    <ul>
+                    <h2 className="text-2xl font-semibold mb-4">স্ট্যাটস</h2>
+                    <ul className="space-y-1">
                         {pokemon.stats.map((stat, idx) => (
                             <li key={idx} className="capitalize">
                                 {stat.stat.name}: {stat.base_stat}
@@ -109,14 +93,11 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
                         ))}
                     </ul>
                 </div>
-                {/* মুভসেট (Moves) */}
                 <div className="mt-6">
-                    <h2 className="text-2xl font-semibold mb-2">মুভসেট</h2>
-                    <ul className="list-disc list-inside">
+                    <h2 className="text-2xl font-semibold mb-4">মুভসেট</h2>
+                    <ul className="list-disc list-inside space-y-1">
                         {pokemon.moves.slice(0, 10).map((move, idx) => (
-                            <li key={idx} className="capitalize">
-                                {move.move.name}
-                            </li>
+                            <li key={idx} className="capitalize">{move.move.name}</li>
                         ))}
                     </ul>
                 </div>
@@ -125,7 +106,6 @@ const PokemonDetailPage: React.FC<PokemonDetailProps> = ({ pokemon }) => {
     );
 };
 
-// প্রথম 151 Pokémon-এর জন্য পাথ জেনারেট করা হচ্ছে
 export const getStaticPaths: GetStaticPaths = async () => {
     const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
     const data = await res.json();
@@ -135,16 +115,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
         paths,
-        fallback: true, // fallback true থাকলে নতুন Pokémon-ও লোড করা যাবে
+        fallback: true,
     };
 };
 
-// Pokémon-এর বিস্তারিত তথ্য স্ট্যাটিকভাবে ফেচ করা হচ্ছে
 export const getStaticProps: GetStaticProps = async (context) => {
     const { id } = context.params!;
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
-    // যদি Pokémon পাওয়া না যায় বা কোনো এরর হয়, তাহলে pokemon কে null করে দেবো
     if (res.status !== 200) {
         return {
             props: { pokemon: null },
@@ -156,7 +134,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     return {
         props: { pokemon },
-        revalidate: 60, // প্রতি 60 সেকেন্ড পর পেজ রিজেনারেট হবে
+        revalidate: 60,
     };
 };
 

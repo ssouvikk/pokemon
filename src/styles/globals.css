@@ -3,20 +3,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default color variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #3b82f6;
+  /* blue-500 */
+  --primary-hover: #2563eb;
+  /* blue-600 */
 }
 
-/* এখানে ভুল ছিল: আপনি ".dark :root" ব্যবহার করছেন, যা সঠিক নয় */
-/* সঠিক উপায়: html.dark (কারণ document.documentElement হচ্ছে <html>) */
+/* Dark mode variables using html.dark */
 html.dark {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --primary: #2563eb;
+  /* slightly darker blue for dark mode */
+  --primary-hover: #1d4ed8;
 }
 
+/* Global styles for body */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
 }

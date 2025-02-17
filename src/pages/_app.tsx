@@ -57,10 +57,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
       )}
       {/* Header এর মতো জায়গায় dark mode toggle button রাখা */}
-      <div className="p-4 flex justify-end">
+      <div className="p-4 flex justify-end bg-gray-50 dark:bg-gray-800 shadow-md">
         <button
           onClick={toggleDarkMode}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-hover transition focus:outline-none focus:ring-2 focus:ring-primary"
         >
           {darkMode ? 'লাইট মোড' : 'ডার্ক মোড'}
         </button>

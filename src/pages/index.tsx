@@ -32,7 +32,7 @@ const HomePage = () => {
     return pokemonData;
   };
 
-  // হোমপেজ লোড হবার সময় URL থেকে সার্চ ও পেজ রিড করতে হবে
+  // হোমপেজ লোড হবার সময় URL থেকে সার্চ ও পেজ রিড করা
   useEffect(() => {
     if (querySearch) {
       setSearchQuery(querySearch as string);
@@ -84,13 +84,13 @@ const HomePage = () => {
   }, [page, searchQuery]);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-6">
       <SearchBar value={searchQuery} onChange={handleSearchChange} />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
         {filteredPokemons.length > 0 ? (
           filteredPokemons.map((pokemon) => <PokemonCard key={pokemon.id} pokemon={pokemon} />)
         ) : (
-          <div className="col-span-full text-center text-gray-500">No Pokémon found</div>
+          <div className="col-span-full text-center text-lg text-gray-500">No Pokémon found</div>
         )}
       </div>
     </div>
