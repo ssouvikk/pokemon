@@ -7,7 +7,7 @@ Pokémon Explorer is a Next.js-based web application that allows users to search
 - 🔍 **Search Pokémon** by name in real-time.
 - 🃏 **Interactive Pokémon Cards** displaying names and images.
 - 🌙 **Dark Mode Support** for an optimized viewing experience.
-- 📜 **Infinite Scrolling** for seamless browsing of Pokémon.
+- 🌟 **Infinite Scrolling** for seamless browsing of Pokémon.
 - 🌐 **Responsive Design** that works across all devices.
 - ⚡ **Optimized for Performance** with Next.js features.
 
@@ -39,7 +39,41 @@ docker-compose up --build
 ```
 This will start the app in a Docker container at `http://localhost:3000`.
 
-## 📡 API Reference
+## 💼 User Flow
+### **1. Browsing Pokémon List**
+- Users land on the homepage (`/`) and see a grid layout of Pokémon with names and images.
+- Infinite scrolling allows users to browse more Pokémon.
+- A search bar is available to find specific Pokémon by name.
+
+### **2. Searching for a Pokémon**
+- Users can type a Pokémon's name in the search bar to filter results in real-time.
+- Partial or full name searches work.
+- If no results match, a "No Pokémon found" message is displayed.
+
+### **3. Viewing Pokémon Details**
+- Clicking on a Pokémon navigates to `/pokemon/[id]`.
+- The detail page displays:
+  - Name & ID
+  - Image
+  - Type(s)
+  - Abilities
+  - Stats (HP, Attack, Defense, Speed, etc.)
+  - Moveset
+
+### **4. Navigating Back & Exploring More**
+- Users can return to the homepage via the "Back to Home" button or browser back button.
+- Search filters remain intact when returning to the homepage.
+- Users can explore another Pokémon by clicking on a different card.
+
+### **5. Handling Invalid URLs or Missing Data**
+- If a user enters an incorrect Pokémon ID or an invalid URL, a "Pokémon Not Found" page appears.
+- A "Go Back Home" button allows easy navigation back to the homepage.
+
+### **6. Refreshing & Sharing Pokémon Pages**
+- Users can refresh a Pokémon details page, and the data will reload.
+- Users can copy and share the URL to specific Pokémon pages.
+
+## 🎼 API Reference
 This project uses the [PokéAPI](https://pokeapi.co/) to fetch Pokémon data.
 
 ### **Get Pokémon List**
@@ -96,3 +130,4 @@ We welcome contributions! Follow these steps:
 ---
 ### 🏆 **Enjoy Exploring Pokémon!**
 Feel free to reach out or raise an issue if you encounter any problems. Happy coding! 🚀
+
