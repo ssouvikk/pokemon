@@ -1,19 +1,24 @@
-import Image from 'next/image';
 import { Pokemon } from '@/types';
+import Image from 'next/image';
+import Link from 'next/link';
 
-const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
+
+interface PokemonCardProps {
+    pokemon: Pokemon;
+}
+
+const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     return (
-        <div className="border p-4 rounded-lg shadow hover:shadow-lg transition">
-            <h2 className="text-xl font-bold capitalize text-center">{pokemon.name}</h2>
+        <Link href={`/pokemon/${pokemon.id}`} className="block bg-white p-4 rounded shadow hover:shadow-lg transition">
             <Image
-                src={pokemon.url}
-                alt={`${pokemon.name} এর ছবি`}
-                width={200}
-                height={200}
+                src={pokemon.image}
+                alt={`${pokemon.name} এর থাম্বনেইল`}
+                width={96}
+                height={96}
                 className="mx-auto"
-                priority={false} // Lazy loading by default
             />
-        </div>
+            <h2 className="mt-2 text-center text-lg font-semibold capitalize">{pokemon.name}</h2>
+        </Link>
     );
 };
 
