@@ -8,7 +8,9 @@
   --foreground: #171717;
 }
 
-.dark :root {
+/* এখানে ভুল ছিল: আপনি ".dark :root" ব্যবহার করছেন, যা সঠিক নয় */
+/* সঠিক উপায়: html.dark (কারণ document.documentElement হচ্ছে <html>) */
+html.dark {
   --background: #0a0a0a;
   --foreground: #ededed;
 }
